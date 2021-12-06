@@ -51,4 +51,4 @@ jobs:
         echo "==============================================="
         ls ./build/libs
         ls ./
-      
+        docker images
