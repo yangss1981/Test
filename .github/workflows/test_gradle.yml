@@ -39,4 +39,4 @@ jobs:
       run: ./gradlew build
 # #####################################################################################
     - name: Check Artifact
-      run: ls -la
+      run: ls ${{env.JAVA_HOME}}/build/libs
