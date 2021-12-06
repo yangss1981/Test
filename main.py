@@ -10,12 +10,5 @@
 # - /redoc : ReDoc
 # - /openapi.json : Json
 
-from fastapi import FastAPI
-from fastapi.testclient import TestClient
-
-app = FastAPI()
-
-
-@app.get("/hello")
-async def read_main():
+def read_main():
     return {"msg": "Hello World"}
