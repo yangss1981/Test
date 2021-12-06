@@ -86,7 +86,6 @@ jobs:
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         script: |
           put app.jre
-          bye
         
     - name: Copy to Application By SSH
       uses: appleboy/ssh-action@master 
