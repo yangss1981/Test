@@ -79,7 +79,8 @@ jobs:
       run: ls -lRs
     
     - name: Sync files with SFTP
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
+      id: upload
+      uses: Creepios/sftp-action@v1.0.3
       with:
         host: '35.194.57.195'
         port: 22
