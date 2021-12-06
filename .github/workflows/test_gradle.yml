@@ -77,12 +77,22 @@ jobs:
     
     - name: Check Download Artifact    
       run: ls -lRs
-     
+    
+    - name: Sync files with SFTP
+      uses: SamKirkland/FTP-Deploy-Action@4.2.0
+      with:
+        server: 35.194.57.195
+        username: ${{ secrets.REMOTE_SSH_ID }}
+        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        script: |
+          put app.jre
+          bye
+        
     - name: Copy to Application By SSH
       uses: appleboy/ssh-action@master 
       with:
         host: 35.194.57.195
-        username: yangss
+        username: ${{ secrets.REMOTE_SSH_ID }}
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         port: 22
         #host: ${{ secrets.REMOTE_IP }}
