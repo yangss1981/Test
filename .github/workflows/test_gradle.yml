@@ -40,4 +40,7 @@ jobs:
 # #####################################################################################
     - name: Check Artifact
       # ${{env.JAVA_HOME}}
-      run: ls -lRs 
+      # run: ls -lRs 
+      run: |
+        pwd
+        ls ./build/libs
