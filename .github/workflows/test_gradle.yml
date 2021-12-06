@@ -44,22 +44,15 @@ jobs:
       run: |
         pwd
         ls ./build/libs
+    
     - name: Docker build 
       run: docker build -t spring-boot-cicd .
+    
     - name: Check Docker File
       run: |
         echo "==============================================="
         docker images
         echo "==============================================="
-    - name: TestTestEtst
-      run: |
-        echo "===============================================1"
-        pwd
-        echo "===============================================2"
-        ls -lRs 
-        echo "===============================================3"
-        ls ./build/libs/*
-        echo "===============================================4"
         
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v1
@@ -67,7 +60,7 @@ jobs:
         # Artifact name
         name: share_file_name
         # A file, directory or wildcard pattern that describes what to upload
-        path: ./build/libs/*
+        path: ./build/libs/app.jar
     
   depoly:
   
