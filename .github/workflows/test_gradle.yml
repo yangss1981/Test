@@ -79,10 +79,10 @@ jobs:
       run: ls -lRs
     
     - name: Sync files with SFTP
-      uses: SamKirkland/FTP-Deploy-Action@4.2.0
+      uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        server: 35.194.57.195
         username: ${{ secrets.REMOTE_SSH_ID }}
+        server: 35.194.57.195
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         script: |
           put app.jre
