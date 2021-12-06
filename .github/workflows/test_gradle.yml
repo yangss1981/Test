@@ -81,13 +81,12 @@ jobs:
     - name: Sync files with SFTP
       uses: wlixcc/SFTP-Deploy-Action@v1.0
       with:
-        username: ${{ secrets.REMOTE_SSH_ID }}
-        server: 35.194.57.195
-        ssh_private_key: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        host: '35.194.57.195'
         port: 22
-        local_path: './*'
-        remote_path: './'
-        args: '-o ConnectTimeout=5'
+        username: ${{ secrets.REMOTE_SSH_ID }}
+        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        localPath: './*'
+        remotePath: './'
         
     - name: Copy to Application By SSH
       uses: appleboy/ssh-action@master 
