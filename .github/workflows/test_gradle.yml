@@ -55,12 +55,12 @@ jobs:
         echo "==============================================="
         
     - name: Upload a Build Artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v2
       with:
         # Artifact name
         name: share_file_name
         # A file, directory or wildcard pattern that describes what to upload
-        path: ./build/libs/*.jar
+        path: ./build/libs/*
     
   depoly:
   
