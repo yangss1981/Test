@@ -84,8 +84,9 @@ jobs:
         username: ${{ secrets.REMOTE_SSH_ID }}
         server: 35.194.57.195
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-        script: |
-          put app.jre
+        local_path: './*'
+        remote_path: './'
+        args: '-o ConnectTimeout=5'
         
     - name: Copy to Application By SSH
       uses: appleboy/ssh-action@master 
