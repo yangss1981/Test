@@ -4,7 +4,6 @@ from main import app
 
 client = TestClient(app)
 
-
 def test_read_main_true():
     response = client.get("/hello")
     assert response.status_code == 200
