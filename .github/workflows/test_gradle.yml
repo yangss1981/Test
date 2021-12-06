@@ -83,7 +83,7 @@ jobs:
       with:
         username: ${{ secrets.REMOTE_SSH_ID }}
         server: 35.194.57.195
-        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        ssh_password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         local_path: './*'
         remote_path: './'
         args: '-o ConnectTimeout=5'
