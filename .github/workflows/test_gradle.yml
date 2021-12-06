@@ -46,5 +46,9 @@ jobs:
         ls ./build/libs
     - name: Docker build 
       run: docker build -t spring-boot-cicd .
-
-
+    - name: Check Docker File
+      run: |
+        echo "==============================================="
+        ls ./build/libs
+        ls ./
+      
