@@ -5,7 +5,8 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+# name: Java CI with Gradle
+name: Java CI/DD with Gradle
 
 on:
 
@@ -59,16 +60,16 @@ jobs:
         pwd
         ls ./build/libs
         
-    #   b) By gradle or etc ...
+    #   b) By maven or etc ...
     # 필요시 작성
 
     # -------------------------------------------------------------------------------------------------------------------------
 
-    #    # 2) Make a container
+    #    # 2) Make a docker image
     #    - name: Docker build 
     #      run: docker build -t spring-boot-cicd .
     #    
-    #    - name: Check Docker File
+    #    - name: Check docker image
     #      run: |
     #        echo "==============================================="
     #        docker images
@@ -81,7 +82,7 @@ jobs:
 # #############################################################################################################################
     
     # 1) Upload as a binary
-    - name: Upload a Build Artifact
+    - name: Upload a build artifact as a bianry 
       uses: actions/upload-artifact@v2
       with:
         # Artifact name
@@ -91,8 +92,9 @@ jobs:
 
     # -------------------------------------------------------------------------------------------------------------------------
     
-    # 2) Upload as a container
+    # 2) Upload as a docker image
     # 필요시 작성
+    # - name: Upload a docker image
         
 # #############################################################################################################################
 
@@ -103,7 +105,7 @@ jobs:
 # #############################################################################################################################
 
     runs-on: ubuntu-latest
-    # needs:build 는 build 과정이 끝난 후 하단의 코드 실행함을 의미 
+    # 'needs:build' is Setting dependency to start deploy (build 과정이 끝난 후 하단의 코드 실행함을 의미)  
     needs: build
 
 # #############################################################################################################################
@@ -113,7 +115,7 @@ jobs:
 # #############################################################################################################################
 
     steps:
-    - name: Download artifact from build job
+    - name: Download artifacts from build VM
       uses: actions/download-artifact@v2
       with:
         name: share_file_name
@@ -130,11 +132,11 @@ jobs:
 # #############################################################################################################################
     
     # 1) As a binary
-    - name: Sync files with SFTP
+    - name: Deploy artifacts with SFTP
       id: upload
       uses: Creepios/sftp-action@v1.0.3
       with:
-        host: '35.194.57.195'
+        host: ${{ secrets.REMOTE_IP }}
         port: 22
         username: ${{ secrets.REMOTE_SSH_ID }}
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
@@ -145,6 +147,7 @@ jobs:
     
     # 2) As a container
     # 필요시 추가
+    # - name: Deploy artifacts with docker
         
 # #############################################################################################################################
 
@@ -153,10 +156,10 @@ jobs:
 # 8. Execution a service
 # #############################################################################################################################
 
-    - name: Copy to Application By SSH
+    - name: Execution a service with SSH
       uses: appleboy/ssh-action@master 
       with:
-        host: 35.194.57.195
+        host: ${{ secrets.REMOTE_IP }}
         username: ${{ secrets.REMOTE_SSH_ID }}
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         port: 22
@@ -165,9 +168,9 @@ jobs:
         #key: ${{ secrets.REMOTE_SSH_KEY }} or password: ${{ secrets.REMOTE_SSH_PASSWORD}}
         #port: ${{ secrets.REMOTE_SSH_PORT }}
         script: |
-          echo "For Bianary #############################################################"
+          echo "As a bianary #############################################################"
           whoami
-          echo "For Container ###########################################################"
+          echo "As a container ###########################################################"
           pwd
           echo "Results #################################################################"
           ls -lRs
