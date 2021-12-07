@@ -101,8 +101,11 @@ jobs:
     - name: Upload a docker image
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        #docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        #docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+        
         echo "==============================================="
         docker images
         echo "==============================================="
