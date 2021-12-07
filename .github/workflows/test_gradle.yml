@@ -88,7 +88,7 @@ jobs:
         port: 22
         username: ${{ secrets.REMOTE_SSH_ID }}
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-        localPath: '/home/runner/work/Test/Test/app.jre'
+        localPath: '/home/runner/work/Test/Test/app.jar'
         remotePath: './'
         
     - name: Copy to Application By SSH
