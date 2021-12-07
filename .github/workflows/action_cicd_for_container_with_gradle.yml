@@ -100,7 +100,7 @@ jobs:
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
         echo "################################################################################################################################################ 1"
         
-        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7}
+        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
         
         docker images
         echo "################################################################################################################################################ 2"
@@ -167,7 +167,8 @@ jobs:
     
     # 2) As a container
     # 필요시 추가
-    # - name: Deploy artifacts with docker
+    - name: Deploy artifacts with docker
+      run: docker images
         
 # #############################################################################################################################
 
