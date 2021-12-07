@@ -98,11 +98,13 @@ jobs:
       run: |
         docker images
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-        docker images
-        echo "################################################################################################################################################"
+        echo "################################################################################################################################################ 1"
         
-        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7} 
-        docker push ${{ secrets.DOCKERHUB_PASSWORD }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7}
+        
+        docker images
+        echo "################################################################################################################################################ 2" 
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
        
 # #############################################################################################################################
 
