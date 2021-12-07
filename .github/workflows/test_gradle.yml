@@ -86,8 +86,9 @@ jobs:
         port: 22
         username: ${{ secrets.REMOTE_SSH_ID }}
         password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-        #localPath: './app.jre'
-        #remotePath: './'
+        script: pwd
+        localPath: './app.jre'
+        remotePath: './'
         
     - name: Copy to Application By SSH
       uses: appleboy/ssh-action@master 
