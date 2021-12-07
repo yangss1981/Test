@@ -1,0 +1,53 @@
+{
+	"info": {
+		"_postman_id": "58d5f385-39a7-41e2-99ba-696160a76661",
+		"name": "CI/CD Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/hello",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://35.194.57.195:8888/hello",
+					"protocol": "http",
+					"host": [
+						"35",
+						"194",
+						"57",
+						"195"
+					],
+					"port": "8888",
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/bye",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://35.194.57.195:8888/bye",
+					"protocol": "http",
+					"host": [
+						"35",
+						"194",
+						"57",
+						"195"
+					],
+					"port": "8888",
+					"path": [
+						"bye"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
