@@ -94,11 +94,11 @@ jobs:
     # -------------------------------------------------------------------------------------------------------------------------
     
     # 2) Upload as a docker image
-    #- name: Upload a docker image
-    #  run: |
-    #    docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-    #    docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7} 
-    #    docker push ${{ secrets.DOCKERHUB_PASSWORD }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+    - name: Upload a docker image
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7} 
+        docker push ${{ secrets.DOCKERHUB_PASSWORD }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
        
 # #############################################################################################################################
 
@@ -135,9 +135,8 @@ jobs:
     
     # 2) Download as a docker image
     # 필요시 작성
-    - name: Upload a docker image
-      run: pwd
-        
+    # docker image를 dockerhub에 push한 경우로 해당 이미지 파일 필요 없음
+              
 # #############################################################################################################################
 
 # #############################################################################################################################
