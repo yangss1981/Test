@@ -6,7 +6,7 @@
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
 # name: Java CI with Gradle
-name: Java CI/CD with Gradle
+name: Java CI/CD for container with Gradle
 
 on:
 
@@ -65,15 +65,16 @@ jobs:
 
     # -------------------------------------------------------------------------------------------------------------------------
 
-    #    # 2) Make a docker image
-    #    - name: Docker build 
-    #      run: docker build -t spring-boot-cicd .
-    #    
-    #    - name: Check docker image
-    #      run: |
-    #        echo "==============================================="
-    #        docker images
-    #        echo "==============================================="
+    # 2) Make a docker image
+    - name: Docker build 
+      run: |
+        docker build -t spring-boot-cicd-ytest .
+        
+    - name: Check docker image
+      run: |
+        echo "==============================================="
+        docker images
+        echo "==============================================="
     
 # #############################################################################################################################
 
@@ -82,20 +83,23 @@ jobs:
 # #############################################################################################################################
     
     # 1) Upload as a binary
-    - name: Upload a build artifact as a bianry 
-      uses: actions/upload-artifact@v2
-      with:
-        # Artifact name
-        name: share_file_name
-        # A file, directory or wildcard pattern that describes what to upload
-        path: ./build/libs/*
+    #- name: Upload a build artifact as a bianry 
+    #  uses: actions/upload-artifact@v2
+    #  with:
+    #    # Artifact name
+    #    name: share_file_name
+    #    # A file, directory or wildcard pattern that describes what to upload
+    #    path: ./build/libs/*
 
     # -------------------------------------------------------------------------------------------------------------------------
     
     # 2) Upload as a docker image
-    # 필요시 작성
-    # - name: Upload a docker image
-        
+    #- name: Upload a docker image
+    #  run: |
+    #    docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+    #    docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-test-ytest:${GITHUB_SHA::7} 
+    #    docker push ${{ secrets.DOCKERHUB_PASSWORD }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+       
 # #############################################################################################################################
 
   depoly:
@@ -110,20 +114,29 @@ jobs:
 
 # #############################################################################################################################
 
+    steps:
+
 # #############################################################################################################################
 # 6. Download artifacts
 # #############################################################################################################################
-
-    steps:
-    - name: Download artifacts from build VM
-      uses: actions/download-artifact@v2
-      with:
-        name: share_file_name
     
-    - name: Check Download Artifact    
-      run: |
-        pwd
-        ls -lRs
+    # 1) Download as a binary
+    #- name: Download artifacts from build VM
+    #  uses: actions/download-artifact@v2
+    #  with:
+    #    name: share_file_name
+    
+    #- name: Check Download Artifact    
+    #  run: |
+    #    pwd
+    #    ls -lRs
+    
+    # -------------------------------------------------------------------------------------------------------------------------
+    
+    # 2) Download as a docker image
+    # 필요시 작성
+    - name: Upload a docker image
+      run: pwd
         
 # #############################################################################################################################
 
@@ -132,16 +145,16 @@ jobs:
 # #############################################################################################################################
     
     # 1) As a binary
-    - name: Deploy artifacts with SFTP
-      id: upload
-      uses: Creepios/sftp-action@v1.0.3
-      with:
-        host: ${{ secrets.REMOTE_IP }}
-        port: 22
-        username: ${{ secrets.REMOTE_SSH_ID }}
-        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-        localPath: './app.jar'
-        remotePath: './artifactory/'
+    #- name: Deploy artifacts with SFTP
+    #  id: upload
+    #  uses: Creepios/sftp-action@v1.0.3
+    #  with:
+    #    host: ${{ secrets.REMOTE_IP }}
+    #    port: 22
+    #    username: ${{ secrets.REMOTE_SSH_ID }}
+    #    password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+    #    localPath: './app.jar'
+    #    remotePath: './artifactory/'
     
     # -------------------------------------------------------------------------------------------------------------------------
     
@@ -169,10 +182,9 @@ jobs:
         #port: ${{ secrets.REMOTE_SSH_PORT }}
         script: |
           echo "As a bianary #############################################################"
-          cd ~/artifactory
-          pwd
-          cp 
-          ./start_app.sh
+          #cd ~/artifactory
+          #pwd
+          #./start_app.sh
           echo "As a container ###########################################################"
           echo "Results #################################################################"
           ls -lRs
