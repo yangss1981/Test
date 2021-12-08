@@ -124,6 +124,8 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '30s'
+        
+    - name: Check Networks
       run: |
         
         echo "===============================================111"
