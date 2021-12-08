@@ -74,6 +74,7 @@ jobs:
     
     - name: Build with Gradle
       run: ./gradlew build
+      shell: bash
     
     - name: Check Artifact
       # ${{env.JAVA_HOME}}
@@ -120,6 +121,7 @@ jobs:
         echo "===============================================111"
         netstat -ntlp
         echo "===============================================222"
+      shell: bash
     
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
