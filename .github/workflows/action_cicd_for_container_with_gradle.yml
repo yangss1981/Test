@@ -119,7 +119,7 @@ jobs:
     - name: RestAPI Test
       uses: wei/curl@v1
       with:
-        args: -X GET http://127.0.0.1:8888/hello
+        args: -X GET http://127.0.0.1:9999/hello
     
      #   echo "3. Show Result"
      #   echo "==============================================="
