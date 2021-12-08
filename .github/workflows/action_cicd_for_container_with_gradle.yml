@@ -118,6 +118,7 @@ jobs:
         #curl -X GET http://127.0.0.1:7777/hello
         ps -ef | grep app.jar
         npm install --save netstats
+        az vm open-port --port 7777 --resource-group myResourceGroupAutomate --name myAutomatedVM
       shell: bash
     
     - name: Sleep for 30 seconds
