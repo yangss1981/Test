@@ -121,7 +121,10 @@ jobs:
       uses: jakejarvis/wait-action@master
       with:
         time: '30s'
-        
+    
+    - name: netstat install
+      run: apt install net-tools
+    
     - name: RestAPI Test
       uses: wei/curl@v1
       with:
