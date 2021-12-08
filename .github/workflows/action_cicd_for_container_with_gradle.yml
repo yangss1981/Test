@@ -114,17 +114,13 @@ jobs:
         echo "2. Test API"        
         #curl -X GET http://35.194.57.195:8888/hello
         #curl -X GET http://127.0.0.1:8888/hello
+        netstat -ln | grep 8888
         
-    - name: curl1
+    - name: RestAPI Test
       uses: wei/curl@v1
       with:
         args: -X GET http://127.0.0.1:8888/hello
     
-    - name: curl2
-      uses: wei/curl@v1
-      with:
-        args: -X GET http://127.0.0.1:8888/bye
-        
      #   echo "3. Show Result"
      #   echo "==============================================="
 # #############################################################################################################################
