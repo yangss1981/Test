@@ -117,6 +117,9 @@ jobs:
         ps -ef | grep app.jar
         
         npm install --save netstats
+        echo "===============================================111"
+        netstat -ntlp
+        echo "===============================================222"
     
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
