@@ -110,8 +110,8 @@ jobs:
       run: |
         echo "==============================================="
         echo "1. Start Application"
-        #nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
-        nohup java -jar ./build/libs/app.jar >> nohup.out 2>&1 &
+        nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
+        #nohup java -jar ./build/libs/app.jar >> nohup.out 2>&1 &
       
         echo "2. Test API"        
         #curl -X GET http://35.194.57.195:7777/hello
