@@ -110,12 +110,12 @@ jobs:
       run: |
         echo "==============================================="
         echo "1. Start Application"
-        #nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
+        nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
         #nohup java -jar ./build/libs/app.jar >> nohup.out 2>&1 &
       
         echo "2. Test API"        
-        #curl -X GET http://35.194.57.195:8888/hello
-        #curl -X GET http://127.0.0.1:8888/hello
+        #curl -X GET http://35.194.57.195:8080/hello
+        #curl -X GET http://127.0.0.1:8080/hello
         ps -ef | grep app.jar
         
         npm install --save netstats
@@ -132,7 +132,7 @@ jobs:
     - name: RestAPI Test
       uses: wei/curl@v1
       with:
-        args: -X GET http://127.0.0.1:8888/hello
+        args: -X GET http://127.0.0.1:8080/hello
     
      #   echo "3. Show Result"
      #   echo "==============================================="
@@ -277,7 +277,7 @@ jobs:
 #          echo "==============================================="
 #          
 #          docker stop spring-boot-cicd-ytest
-#          docker run -d --rm --name spring-boot-cicd-ytest -p 8888:8888 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+#          docker run -d --rm --name spring-boot-cicd-ytest -p 8080:8080 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
 #          
 #          echo "Finish SSH ###############################################################"
 #          
