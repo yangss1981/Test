@@ -117,17 +117,18 @@ jobs:
         #curl -X GET http://35.194.57.195:7777/hello
         #curl -X GET http://127.0.0.1:7777/hello
         ps -ef | grep app.jar
-        
         npm install --save netstats
-        echo "===============================================111"
-        netstat -ntlp
-        echo "===============================================222"
       shell: bash
     
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
       with:
         time: '30s'
+      run: |
+        
+        echo "===============================================111"
+        netstat -ntlp
+        echo "===============================================222"
         
     - name: RestAPI Test
       uses: wei/curl@v1
