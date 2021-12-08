@@ -116,7 +116,7 @@ jobs:
         #curl -X GET http://127.0.0.1:8888/hello
         ps -ef | grep app.jar
         
-        ping 127.0.0.1
+        telnet 127.0.0.1 9999
     
     - name: Sleep for 30 seconds
       uses: jakejarvis/wait-action@master
