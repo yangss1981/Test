@@ -9,12 +9,12 @@ public class HelloController {
 	@GetMapping("/hello") 
 	public String hello() 
 	{ 
-		return "hello World~~~!!"; 
+		return "hello World~~~!! A"; 
 	}
 	
 	@GetMapping("/bye") 
 	public String bye() 
 	{ 
-		return "Bye World~~~!!"; 
+		return "Bye World~~~!! B"; 
 	}
 }
