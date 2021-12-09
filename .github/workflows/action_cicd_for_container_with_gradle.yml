@@ -91,15 +91,15 @@ jobs:
     # -------------------------------------------------------------------------------------------------------------------------
 
     # 2) Make a docker image
-    #- name: Docker build 
-    #  run: |
-    #    docker build -t spring-boot-cicd-ytest .
+    - name: Docker build 
+      run: |
+        docker build -t spring-boot-cicd-ytest .
         
-    #- name: Check docker image
-    #  run: |
-    #    echo "==============================================="
-    #    docker images
-    #    echo "==============================================="
+    - name: Check docker image
+      run: |
+        echo "==============================================="
+        docker images
+        echo "==============================================="
 
 # #############################################################################################################################
 
@@ -107,36 +107,36 @@ jobs:
 # 4. Test : 테스트 단계는 각 사용자가 정책에 맞게 진행하면 됨. RestAPI 스트인 경우 [ Postman/Newman ] 조합을 사용할 수 있을 것 같음.
 # #############################################################################################################################
     - name: Test before Release
-      run: |
-        echo "==============================================="
-        echo "1. Start Application"
-        nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
-        #nohup java -jar ./build/libs/app.jar >> nohup.out 2>&1 &
+      #run: |
+      #  echo "==============================================="
+      #  echo "1. Start Application"
+      #  nohup java -jar -Djava.net.preferIPv4Stack=true ./build/libs/app.jar >> nohup.out 2>&1 &
+      #  #nohup java -jar ./build/libs/app.jar >> nohup.out 2>&1 &
       
-        echo "2. Test API"        
-        #curl -X GET http://35.194.57.195:7777/hello
-        #curl -X GET http://127.0.0.1:7777/hello
-        ps -ef | grep app.jar
-        npm install --save netstats
-        az vm open-port --port 7777 --resource-group myResourceGroupAutomate --name myAutomatedVM
-      shell: bash
+      #  echo "2. Test API"        
+      #  #curl -X GET http://35.194.57.195:7777/hello
+      #  #curl -X GET http://127.0.0.1:7777/hello
+      #  ps -ef | grep app.jar
+      #  npm install --save netstats
+      #  #az vm open-port --port 7777 --resource-group myResourceGroupAutomate --name myAutomatedVM # azure vm 로그인 필요함
+      #shell: bash
     
-    - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
-      with:
-        time: '30s'
+    #- name: Sleep for 30 seconds
+    #  uses: jakejarvis/wait-action@master
+    #  with:
+    #    time: '30s'
         
-    - name: Check Networks
-      run: |
+    #- name: Check Networks
+    #  run: |
         
-        echo "===============================================111"
-        netstat -ntlp
-        echo "===============================================222"
+    #    echo "===============================================111"
+    #    netstat -ntlp
+    #    echo "===============================================222"
         
-    - name: RestAPI Test
-      uses: wei/curl@v1
-      with:
-        args: -X GET http://127.0.0.1:7777/hello
+    #- name: RestAPI Test
+    #  uses: wei/curl@v1
+    #  with:
+    #    args: -X GET http://127.0.0.1:7777/hello
     
      #   echo "3. Show Result"
      #   echo "==============================================="
@@ -161,40 +161,40 @@ jobs:
 #
 #    # -------------------------------------------------------------------------------------------------------------------------
 #    
-#    # 2) Upload as a docker image
-#    # 참고 : docker image를 직접 파일로 저장해서 배포하는 경우에는 Docker Image를 파일로 저장하고, [ 1) Upload as a binary ]과 같이 업로드 해야 함
-#    # 참고 : 업로드한 docker image파일은 [ depoly ] 부분에서 다운로드 해야 함  
-#    - name: Upload a docker image
-#      run: |
-#        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-#        #docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
-#        #docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
-#        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
-#        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
-#        
-#        echo "==============================================="
-#        docker images
-#        echo "==============================================="
-#       
-## #############################################################################################################################
-#
-#  depoly:
-#
+    # 2) Upload as a docker image
+    # 참고 : docker image를 직접 파일로 저장해서 배포하는 경우에는 Docker Image를 파일로 저장하고, [ 1) Upload as a binary ]과 같이 업로드 해야 함
+    # 참고 : 업로드한 docker image파일은 [ depoly ] 부분에서 다운로드 해야 함  
+    - name: Upload a docker image
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+        #docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        #docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest:${GITHUB_SHA::7}
+        docker tag spring-boot-cicd-ytest ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+        
+        echo "==============================================="
+        docker images
+        echo "==============================================="
+       
+# #############################################################################################################################
+
+  depoly:
+
 ## #############################################################################################################################
 ## 6. Setting VM Environment to depoly artifacts
 ## #############################################################################################################################
-#
-#    runs-on: ubuntu-latest
-#    # 'needs:build' is Setting dependency to start deploy (build 과정이 끝난 후 하단의 코드 실행함을 의미)  
-#    needs: build
-#
-## #############################################################################################################################
-#
-#    steps:
-#
-## #############################################################################################################################
-## 7. Download artifacts
-## #############################################################################################################################
+
+    runs-on: ubuntu-latest
+    # 'needs:build' is Setting dependency to start deploy (build 과정이 끝난 후 하단의 코드 실행함을 의미)  
+    needs: build
+
+# #############################################################################################################################
+
+    steps:
+
+# #############################################################################################################################
+# 7. Download artifacts
+# #############################################################################################################################
 #    
 #    # 1) Download as a binary
 #    #- name: Download artifacts from build VM
@@ -214,12 +214,12 @@ jobs:
 #    # 참고 : docker image를 dockerhub에 push한 경우로 해당 이미지 파일 필요 없음
 #    # 참고 : docker image를 직접 파일로 저장해서 배포하는 경우에 필요할 것임
 #              
-## #############################################################################################################################
-#
-## #############################################################################################################################
-## 8. Deploy artifacts
-## #############################################################################################################################
-#    
+# #############################################################################################################################
+
+# #############################################################################################################################
+# 8. Deploy artifacts
+# #############################################################################################################################
+    
 #    # 1) As a binary
 #    #- name: Deploy artifacts with SFTP
 #    #  id: upload
@@ -243,21 +243,23 @@ jobs:
 ## #############################################################################################################################
 #
 #
-## #############################################################################################################################
-## 9. Execution a service
-## #############################################################################################################################
-#
-#    - name: Execution a service with SSH
-#      uses: appleboy/ssh-action@master 
-#      with:
-#        host: ${{ secrets.REMOTE_IP }}
-#        username: ${{ secrets.REMOTE_SSH_ID }}
-#        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-#        port: 22
-#        #host: ${{ secrets.REMOTE_IP }}
-#        #username: ${{ secrets.REMOTE_SSH_ID }}
-#        #key: ${{ secrets.REMOTE_SSH_KEY }} or password: ${{ secrets.REMOTE_SSH_PASSWORD}}
-#        #port: ${{ secrets.REMOTE_SSH_PORT }}
+# #############################################################################################################################
+# 9. Execution a service
+# #############################################################################################################################
+
+    - name: Execution a service with SSH
+      uses: appleboy/ssh-action@master 
+      with:
+        host: ${{ secrets.REMOTE_IP }}
+        username: ${{ secrets.REMOTE_SSH_ID }}
+        password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        port: 22
+        #host: ${{ secrets.REMOTE_IP }}
+        #username: ${{ secrets.REMOTE_SSH_ID }}
+        #key: ${{ secrets.REMOTE_SSH_KEY }} or password: ${{ secrets.REMOTE_SSH_PASSWORD}}
+        #port: ${{ secrets.REMOTE_SSH_PORT }}
+
+#       # 1) As a bianary
 #        script: |
 #          echo "As a bianary #############################################################"
 #
@@ -267,25 +269,33 @@ jobs:
 #          #echo "==============================================="
 #          #ls -lRs
 #          #echo "==============================================="
-#          
-#          echo "As a container ###########################################################"
-#
-#          echo "==============================================="
-#          docker images
-#          echo "==============================================="
-#        
-#          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest # or sudo docker pull [계정명]/spring-cicd:[최신버젼]
-#        
-#          echo "==============================================="
-#          docker images
-#          echo "==============================================="
-#          
-#          docker stop spring-boot-cicd-ytest
-#          docker run -d --rm --name spring-boot-cicd-ytest -p 7777:7777 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
-#          
-#          echo "Finish SSH ###############################################################"
-#          
-## #############################################################################################################################
+
+
+#       # 2) As a container
+        script: |                  
+          echo "As a container ###########################################################"
+
+           echo "==============================================="
+           docker images
+           echo "==============================================="
+        
+           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest # or sudo docker pull [계정명]/spring-cicd:[최신버젼]
+         
+           echo "==============================================="
+           docker images
+           echo "==============================================="
+          
+           docker stop spring-boot-cicd-ytest
+           docker run -d --rm --name spring-boot-cicd-ytest -p 7777:7777 ${{ secrets.DOCKERHUB_USERNAME }}/spring-boot-cicd-ytest
+          
+           echo "Finish SSH ###############################################################"
+           
+    - name: RestAPI Test
+      uses: wei/curl@v1
+      with:
+        args: -X GET ${{ secrets.REMOTE_IP }}:7777/hello
+          
+# #############################################################################################################################
 
 
 
